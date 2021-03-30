@@ -45,7 +45,7 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
     	if ((greaterZero(info.elapsedDistance) || greaterZero(info.totalAscent))
     		&& greaterZero(info.timerTime)) {
     		var totalLkm = (info.elapsedDistance / 1000) + (info.totalAscent / 100);
-	        totalLkmField.setData(info.elapsedDistance);
+	        totalLkmField.setData(totalLkm);
 	        
     		var res = info.timerTime / (60 * info.elapsedDistance + 600 * info.totalAscent);
 	        minPerLkmField.setData(res);
