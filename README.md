@@ -1,0 +1,1 @@
+# garmin-minutes-per-powerkilometer-field
