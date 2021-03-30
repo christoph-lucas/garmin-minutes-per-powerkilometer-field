@@ -1,0 +1,7 @@
+<strings>
+    <string id="AppName">MinutesPerPowerKilometer</string>
+    <string id="minPerPkmShort">min/Pkm</string>
+    <string id="minPerPkmLong">Minutes per Power Kilometer</string>
+    <string id="totalPkmShort">Total Pkm</string>
+    <string id="totalPkmLong">Total Power Kilometer</string>
+</strings>

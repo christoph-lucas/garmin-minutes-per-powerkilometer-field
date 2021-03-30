@@ -1,0 +1,4 @@
+<fitContributions>
+  <fitField id="0" dataLabel="@Strings.minPerPkmLong" unitLabel="@Strings.minPerPkmShort" sortOrder="0" displayInActivitySummary="true" precision="2"></fitField>
+  <fitField id="1" dataLabel="@Strings.totalPkmLong" unitLabel="@Strings.totalPkmShort" sortOrder="1" displayInActivitySummary="true" precision="2"></fitField>
+</fitContributions>
