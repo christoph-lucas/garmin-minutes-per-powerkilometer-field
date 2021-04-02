@@ -3,6 +3,8 @@
     <string id="minPerPkmUnit">min/Pkm</string>
     <string id="avgMinPerPkmShort">avg min/Pkm</string>
     <string id="avgMinPerPkmLong">Avg Min per Power Kilometer</string>
+    <string id="curMinPerPkmShort">cur min/Pkm</string>
+    <string id="curMinPerPkmLong">Cur Min per Power Kilometer</string>
     <string id="pkmUnit">Pkm</string>
     <string id="totalPkmShort">Total Pkm</string>
     <string id="totalPkmLong">Total Power Kilometer</string>

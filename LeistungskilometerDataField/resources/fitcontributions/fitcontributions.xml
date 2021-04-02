@@ -1,4 +1,26 @@
 <fitContributions>
-  <fitField id="0" dataLabel="@Strings.avgMinPerPkmLong" unitLabel="@Strings.minPerPkmUnit" sortOrder="0" displayInActivitySummary="true" precision="2"></fitField>
-  <fitField id="1" dataLabel="@Strings.totalPkmLong" unitLabel="@Strings.pkmUnit" sortOrder="1" displayInActivitySummary="true" precision="2"></fitField>
+
+  <fitField id="0" 
+  	dataLabel="@Strings.avgMinPerPkmLong" 
+  	unitLabel="@Strings.minPerPkmUnit" 
+  	sortOrder="0" 
+  	displayInActivitySummary="true" 
+  	precision="2"></fitField>
+
+  <fitField id="1" 
+  	dataLabel="@Strings.totalPkmLong" 
+  	unitLabel="@Strings.pkmUnit" 
+  	sortOrder="2" 
+  	displayInActivitySummary="true" 
+  	precision="2"></fitField>
+
+  <fitField id="2" 
+  	dataLabel="@Strings.curMinPerPkmLong" 
+  	unitLabel="@Strings.minPerPkmUnit" 
+  	sortOrder="1" 
+  	displayInChart="true" 
+  	chartTitle="@Strings.curMinPerPkmLong" 
+  	fillColor="#FF0000"
+  	precision="2"></fitField>
+
 </fitContributions>
