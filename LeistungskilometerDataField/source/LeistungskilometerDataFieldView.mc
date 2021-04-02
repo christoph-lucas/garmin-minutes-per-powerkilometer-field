@@ -110,8 +110,19 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
 		var timeDeltaInMs = info.timerTime - lastTotalTimeInMs;
 		var timeDeltaInMin = timeDeltaInMs / 60000.0;
 		var pkmDelta = totalPkm - lastTotalPkm;
-		var curMinPerPkm = timeDeltaInMin / pkmDelta;
-
+		
+		var curMinPerPkm = null;
+		if (greaterZero(pkmDelta)) {
+			curMinPerPkm = timeDeltaInMin / pkmDelta;
+		} else {
+			// if pkmDelta=0 then curMinPerPkm is +inf
+			if (lastCurrentMinutesPerPkm == null) {
+				curMinPerPkm = 0.0;
+			} else {
+				curMinPerPkm = lastCurrentMinutesPerPkm;
+			}
+		}
+		
 		var result = null;
 		if (lastCurrentMinutesPerPkm == null) {
 			result = curMinPerPkm;
