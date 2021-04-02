@@ -3,33 +3,33 @@ using Toybox.FitContributor as Fit;
 
 class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
 
-    const MIN_PER_LKM_FIELD_ID = 0;
-    const TOTAL_LKM_FIELD_ID = 1;
-    const UNIT = WatchUi.loadResource(Rez.Strings.minPerPkmShort);
+    const MIN_PER_PKM_FIELD_ID = 0;
+    const TOTAL_PKM_FIELD_ID = 1;
+    const UNIT = WatchUi.loadResource(Rez.Strings.minPerPkmUnit);
 
-    hidden var minPerLkmField = null;
-    hidden var totalLkmField = null;
+    hidden var minPerPkmField = null;
+    hidden var totalPkmField = null;
 
     // Set the label of the data field here.
     function initialize() {
         SimpleDataField.initialize();
         label = UNIT;
         
-		minPerLkmField = createField(
+		minPerPkmField = createField(
             WatchUi.loadResource(Rez.Strings.minPerPkmLong),
-            MIN_PER_LKM_FIELD_ID,
+            MIN_PER_PKM_FIELD_ID,
             Fit.DATA_TYPE_FLOAT,
             {:mesgType=>Fit.MESG_TYPE_SESSION, :units=>UNIT}
         );
-        minPerLkmField.setData(0.0);
+        minPerPkmField.setData(0.0);
 
-		totalLkmField = createField(
+		totalPkmField = createField(
             WatchUi.loadResource(Rez.Strings.totalPkmLong),
-            TOTAL_LKM_FIELD_ID,
+            TOTAL_PKM_FIELD_ID,
             Fit.DATA_TYPE_FLOAT,
-            {:mesgType=>Fit.MESG_TYPE_SESSION, :units=>"lkm"}
+            {:mesgType=>Fit.MESG_TYPE_SESSION, :units=>WatchUi.loadResource(Rez.Strings.totalPkmUnit)}
         );
-        totalLkmField.setData(0.0);
+        totalPkmField.setData(0.0);
     }
 
     // The given info object contains all the current workout
@@ -39,47 +39,31 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
     // See Activity.Info in the documentation for available information.
     function compute(info) {
     	if (info == null) {
-    		return convertToTime(0.0);
+    		return displayTime(0.0);
     	}
     	
     	if ((greaterZero(info.elapsedDistance) || greaterZero(info.totalAscent))
     		&& greaterZero(info.timerTime)) {
-    		var totalLkm = (info.elapsedDistance / 1000) + (info.totalAscent / 100);
-	        totalLkmField.setData(totalLkm);
+    		var totalPkm = (info.elapsedDistance / 1000) + (info.totalAscent / 100);
+	        totalPkmField.setData(totalPkm);
 	        
-    		var res = info.timerTime / (60 * info.elapsedDistance + 600 * info.totalAscent);
-	        minPerLkmField.setData(res);
-    		return convertToTime(res);
+    		var minPerPkm = info.timerTime / (60 * info.elapsedDistance + 600 * info.totalAscent);
+	        minPerPkmField.setData(minPerPkm);
+    		return displayTime(minPerPkm);
     	}
     	
-        return convertToTime(0.0);
+        return displayTime(0.0);
     }
     
     function greaterZero(value) {
     	return value != null && value > 0.0;
     }
     
-    function convertToTime(value) {
+    function displayTime(value) {
     	var fullMinutes = Math.floor(value);
     	var fraction = value - fullMinutes;
     	var seconds = Math.round(fraction * 60);
     	return fullMinutes.format("%d") + ":" + seconds.format("%02d");
     }
-
-	// DEBUG START
-	//System.println("");
-	//System.println("dist: " + info.elapsedDistance);
-	//System.println("ascent: " + info.totalAscent);
-	//System.println("time: " + info.timerTime);
-	//System.println("speed m/s: " + info.averageSpeed);
-	//if (greaterZero(info.averageSpeed)) {
-    //	System.println("pace min/km: " + convertToTime(1000.0/(60.0 * info.averageSpeed)));
-	//}
-	
-	//var display = convertToTime(res);
-	//System.println("pace min/lkm: " + display);
-	//return display;
-	
-	// DEBUG END
 
 }
