@@ -1,0 +1,19 @@
+<settings>
+
+	<setting propertyKey="@Properties.appVersion" title="@Strings.AppVersionTitle">
+        <settingConfig type="alphaNumeric" readonly="true" />
+    </setting>
+
+
+ 	<setting propertyKey="@Properties.diplayValueType" title="@Strings.diplayValueTypeSettingTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.diplayValueTypeSettingAverage</listEntry>
+            <listEntry value="1">@Strings.diplayValueTypeSettingCurrent</listEntry>
+        </settingConfig>
+    </setting>
+
+ 	<setting propertyKey="@Properties.alpha" title="@Strings.alphaSettingTitle" prompt="@Strings.alphaSettingPrompt">
+ 		<settingConfig type="numeric" required="true" min="0.0" max="1.0" errorMessage="@Strings.alphaSettingError"/>
+	</setting>
+
+</settings>

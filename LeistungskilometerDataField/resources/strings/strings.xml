@@ -1,10 +1,22 @@
 <strings>
     <string id="AppName">MinutesPerPowerKilometer</string>
+    
+    <string id="AppVersionTitle">App Version</string>
+
+    <string id="alphaSettingTitle">Alpha (for Exponential Moving Average)</string>
+    <string id="alphaSettingPrompt">0.9</string>
+    <string id="alphaSettingError">Value must be between 0.0 and 1.0.</string>
+
+    <string id="diplayValueTypeSettingTitle">Value to show</string>
+    <string id="diplayValueTypeSettingAverage">Average min/Pkm</string>
+    <string id="diplayValueTypeSettingCurrent">Current min/Pkm</string>
+    
     <string id="minPerPkmUnit">min/Pkm</string>
     <string id="avgMinPerPkmShort">avg min/Pkm</string>
     <string id="avgMinPerPkmLong">Avg Min per Power Kilometer</string>
     <string id="curMinPerPkmShort">cur min/Pkm</string>
     <string id="curMinPerPkmLong">Cur Min per Power Kilometer</string>
+
     <string id="pkmUnit">Pkm</string>
     <string id="totalPkmShort">Total Pkm</string>
     <string id="totalPkmLong">Total Power Kilometer</string>
