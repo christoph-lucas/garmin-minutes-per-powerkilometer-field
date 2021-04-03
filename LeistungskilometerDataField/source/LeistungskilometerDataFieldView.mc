@@ -5,17 +5,16 @@ using Toybox.Activity;
 class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
 
     enum {
-    	TOTAL_PKM,
+    	AVG_PKM,
     	CUR_PKM,
-    	AVG_PKM
+    	TOTAL_PKM
     }
 
     const AVERAGE_MIN_PER_PKM_FIELD_ID = 0;
     const CURRENT_MIN_PER_PKM_FIELD_ID = 2;
     const TOTAL_PKM_FIELD_ID = 1;
     
-    // TODO provide settings
-    hidden var showValueSetting = AVG_PKM;
+    hidden var displayValueType = AVG_PKM;
     hidden var alpha = 0.9;
     
     hidden var averageMinPerPkmField = null;
@@ -31,6 +30,7 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
     // Set the label of the data field here.
     function initialize() {
         SimpleDataField.initialize();
+        loadProperties();
         // TODO depends on setting
         label = WatchUi.loadResource(Rez.Strings.minPerPkmUnit);
         
@@ -58,6 +58,26 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
         );
         totalPkmField.setData(0.0);
     }
+    
+    function loadProperties() {
+        var app = Application.getApp();
+
+        var alphaProperty = app.getProperty("alpha");
+		alpha = isValidAlphaValue(alphaProperty) ? alphaProperty : 0.9;
+
+        var diplayValueTypeProperty = app.getProperty("diplayValueType");
+        if (diplayValueTypeProperty == null || diplayValueTypeProperty == 0) {
+        	displayValueType = AVG_PKM;
+        } else if (diplayValueTypeProperty == 1) {
+        	displayValueType = CUR_PKM;
+        } else {
+        	displayValueType = AVG_PKM;
+        }
+    }
+    
+    function isValidAlphaValue(value) {
+    	return greaterZero(value) && value <= 1.0;
+    }
 
     // The given info object contains all the current workout
     // information. Calculate a value and return it in this method.
@@ -78,7 +98,7 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
 			lastTotalTimeInMs = info.timerTime;
     		lastTotalPkm = totalPkm;
     		
-    		switch (showValueSetting) {
+    		switch (displayValueType) {
     			case AVG_PKM:
     				lastDisplayValue = avgMinPerPkm;
 		    		return displayTime(lastDisplayValue);
@@ -127,7 +147,7 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
 		if (lastCurrentMinutesPerPkm == null) {
 			result = curMinPerPkm;
 		} else {
-			result = (alpha * curMinPerPkm) + ((1-alpha)*lastCurrentMinutesPerPkm);
+			result = (alpha * curMinPerPkm) + ((1-alpha) * lastCurrentMinutesPerPkm);
 		}
 
 		lastCurrentMinutesPerPkm = result;

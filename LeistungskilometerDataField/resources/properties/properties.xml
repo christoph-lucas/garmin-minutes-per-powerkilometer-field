@@ -1,0 +1,5 @@
+<properties>
+	<property id="appVersion" type="string">0.0.4</property>
+	<property id="diplayValueType" type="number">0</property>
+	<property id="alpha" type="float">0.9</property>
+</properties> 
