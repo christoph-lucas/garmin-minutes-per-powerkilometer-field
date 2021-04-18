@@ -16,6 +16,7 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
     
     hidden var displayValueType = AVG_PKM;
     hidden var alpha = 0.9;
+    hidden var maxMinPerPkm = 15.0;
     
     hidden var averageMinPerPkmField = null;
     hidden var currentMinPerPkmField = null;
@@ -37,10 +38,10 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
 		averageMinPerPkmField = createField(
             WatchUi.loadResource(Rez.Strings.avgMinPerPkmLong),
             AVERAGE_MIN_PER_PKM_FIELD_ID,
-            Fit.DATA_TYPE_FLOAT,
-            {:mesgType=>Fit.MESG_TYPE_SESSION, :units=>WatchUi.loadResource(Rez.Strings.minPerPkmUnit)}
+            Fit.DATA_TYPE_STRING,
+            {:mesgType=>Fit.MESG_TYPE_SESSION, :units=>WatchUi.loadResource(Rez.Strings.minPerPkmUnit), :count=>16}
         );
-        averageMinPerPkmField.setData(0.0);
+        averageMinPerPkmField.setData(displayTime(0.0));
 
 		currentMinPerPkmField = createField(
             WatchUi.loadResource(Rez.Strings.curMinPerPkmLong),
@@ -64,6 +65,9 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
 
         var alphaProperty = app.getProperty("alpha");
 		alpha = isValidAlphaValue(alphaProperty) ? alphaProperty : 0.9;
+
+        var maxMinPerPkmProperty = app.getProperty("maxMinPerPkm");
+		maxMinPerPkm = greaterZero(maxMinPerPkmProperty) ? maxMinPerPkmProperty : 15.0;
 
         var diplayValueTypeProperty = app.getProperty("diplayValueType");
         if (diplayValueTypeProperty == null || diplayValueTypeProperty == 0) {
@@ -122,7 +126,7 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
     
     function updateAverageMinutesPerPkm(info) {
 		var avgMinPerPkm = info.timerTime / (60 * info.elapsedDistance + 600 * info.totalAscent);
-        averageMinPerPkmField.setData(avgMinPerPkm);
+        averageMinPerPkmField.setData(displayTime(avgMinPerPkm));
         return avgMinPerPkm;
     }
     
@@ -144,12 +148,17 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
 		}
 		
 		var result = null;
-		if (lastCurrentMinutesPerPkm == null) {
+		var time_in_s = info.timerTime / 1000.0;
+		if (lastCurrentMinutesPerPkm == null || time_in_s <= 0) {
 			result = curMinPerPkm;
 		} else {
-			result = (alpha * curMinPerPkm) + ((1-alpha) * lastCurrentMinutesPerPkm);
+			// given alpha, the smoothed average provokes a lag of 1/alpha steps
+			// assume that 1 step corresponds to 1s, then alpha is too small when time_in_s < 1.0 / alpha
+			var cur_alpha = max(alpha, 1.0 / time_in_s);  
+			result = (cur_alpha * curMinPerPkm) + ((1-cur_alpha) * lastCurrentMinutesPerPkm);
 		}
 
+		result = min(result, maxMinPerPkm);
 		lastCurrentMinutesPerPkm = result;
         currentMinPerPkmField.setData(result);
         return result;
@@ -164,6 +173,14 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
     	var fraction = value - fullMinutes;
     	var seconds = Math.round(fraction * 60);
     	return fullMinutes.format("%d") + ":" + seconds.format("%02d");
+    }
+    
+    function max(a, b) {
+    	return a > b ? a : b;
+    }
+
+    function min(a, b) {
+    	return a < b ? a : b;
     }
 
 }

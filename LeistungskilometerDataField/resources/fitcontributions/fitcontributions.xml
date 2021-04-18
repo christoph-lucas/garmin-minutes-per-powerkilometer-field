@@ -19,8 +19,8 @@
   	unitLabel="@Strings.minPerPkmUnit" 
   	sortOrder="1" 
   	displayInChart="true" 
-  	chartTitle="@Strings.curMinPerPkmLong" 
-  	fillColor="#FF0000"
+  	chartTitle="@Strings.curMinPerPkmChartTitle" 
+  	fillColor="#1F85DE"
   	precision="2"></fitField>
 
 </fitContributions>

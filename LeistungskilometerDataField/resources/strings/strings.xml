@@ -7,6 +7,10 @@
     <string id="alphaSettingPrompt">0.9</string>
     <string id="alphaSettingError">Value must be between 0.0 and 1.0.</string>
 
+    <string id="maxMinPerPkmSettingTitle">Maximum Current minutes per Power KM</string>
+    <string id="maxMinPerPkmSettingPrompt">15.0</string>
+    <string id="maxMinPerPkmSettingError">Value must be greater than 0.0.</string>
+
     <string id="diplayValueTypeSettingTitle">Value to show</string>
     <string id="diplayValueTypeSettingAverage">Average min/Pkm</string>
     <string id="diplayValueTypeSettingCurrent">Current min/Pkm</string>
@@ -15,7 +19,8 @@
     <string id="avgMinPerPkmShort">avg min/Pkm</string>
     <string id="avgMinPerPkmLong">Avg Min per Power Kilometer</string>
     <string id="curMinPerPkmShort">cur min/Pkm</string>
-    <string id="curMinPerPkmLong">Cur Min per Power Kilometer</string>
+    <string id="curMinPerPkmLong">Current Minutes per Power KM</string>
+    <string id="curMinPerPkmChartTitle">Minutes per Power Kilometer</string>
 
     <string id="pkmUnit">Pkm</string>
     <string id="totalPkmShort">Total Pkm</string>
