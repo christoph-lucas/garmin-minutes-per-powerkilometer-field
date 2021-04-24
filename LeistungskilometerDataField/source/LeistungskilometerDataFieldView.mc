@@ -158,9 +158,9 @@ class LeistungskilometerDataFieldView extends WatchUi.SimpleDataField {
 			result = (cur_alpha * curMinPerPkm) + ((1-cur_alpha) * lastCurrentMinutesPerPkm);
 		}
 
-		result = min(result, maxMinPerPkm);
+		// apply cap to chart data to avoid outliers
+        currentMinPerPkmField.setData(min(result, maxMinPerPkm));
 		lastCurrentMinutesPerPkm = result;
-        currentMinPerPkmField.setData(result);
         return result;
     }
     
