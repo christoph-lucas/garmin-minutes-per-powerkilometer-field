@@ -1,5 +1,5 @@
 <properties>
-	<property id="appVersion" type="string">1.0.0</property>
+	<property id="appVersion" type="string">1.1.1</property>
 	<property id="diplayValueType" type="number">0</property>
 	<property id="alpha" type="float">0.1</property>
 	<property id="maxMinPerPkm" type="float">15.0</property>
